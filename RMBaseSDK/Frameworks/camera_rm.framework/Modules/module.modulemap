@@ -1,0 +1,10 @@
+framework module camera_rm {
+  umbrella header "camera-umbrella.h"
+
+  export *
+  module * { export * }
+
+  explicit module Test {
+    header "RMCameraPlugin_Test.h"
+  }
+}
