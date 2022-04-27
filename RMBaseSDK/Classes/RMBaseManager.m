@@ -111,7 +111,7 @@ static RMBaseManager * _instance;
 
 - (BOOL)openFlutterViewWithRoute:(NSString *)route isAnimate:(BOOL)animate isPush:(BOOL)isPush {
     
-    UIViewController *controller = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *controller = [self findCurrentShowingViewController];
     
     [RMBasePluginManager  navigateTo:route];
     FlutterViewControllerSDK *vc = [[FlutterViewControllerSDK alloc]initWithEngine:self.engine nibName:nil bundle:nil];
@@ -120,8 +120,9 @@ static RMBaseManager * _instance;
     if (isPush) {
         controller.navigationController.view.backgroundColor = [UIColor whiteColor];
         if ([controller isKindOfClass:[UINavigationController class]]) {
-            ((UINavigationController *)controller).navigationBarHidden = YES;
-            [(UINavigationController *)controller pushViewController:vc animated:animate];
+            UINavigationController *navC = (UINavigationController *)controller;
+            navC.navigationBarHidden = YES;
+            [navC pushViewController:vc animated:animate];
         }else if ([controller isKindOfClass:[UITabBarController class]]) {
             controller.navigationController.navigationBarHidden = YES;
             [((UITabBarController *)controller).navigationController pushViewController:vc animated:animate];
@@ -137,6 +138,36 @@ static RMBaseManager * _instance;
     
     return YES;
 }
+
+- (UIViewController *)findCurrentShowingViewController {
+    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *currentShowingVC = [self findCurrentShowingViewControllerFrom:vc];
+    return currentShowingVC;
+}
+
+- (UIViewController *)findCurrentShowingViewControllerFrom:(UIViewController *)vc
+{
+    UIViewController *currentShowingVC;
+    if ([vc presentedViewController]) {
+        
+        UIViewController *nextRootVC = [vc presentedViewController];
+        currentShowingVC = [self findCurrentShowingViewControllerFrom:nextRootVC];
+        
+    } else if ([vc isKindOfClass:[UITabBarController class]]) {
+        UIViewController *nextRootVC = [(UITabBarController *)vc selectedViewController];
+        currentShowingVC = [self findCurrentShowingViewControllerFrom:nextRootVC];
+        
+    } else if ([vc isKindOfClass:[UINavigationController class]]){
+        UIViewController *nextRootVC = [(UINavigationController *)vc visibleViewController];
+        currentShowingVC = [self findCurrentShowingViewControllerFrom:nextRootVC];
+        
+    } else {
+        currentShowingVC = vc;
+    }
+    
+    return currentShowingVC;
+}
+
 
 
 @end
