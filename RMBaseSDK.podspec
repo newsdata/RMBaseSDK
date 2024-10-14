@@ -22,7 +22,7 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/newsdata/RMBaseSDK.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '12.0'
 
   s.source_files = 'RMBaseSDK/Classes/**/*'
   
@@ -37,7 +37,7 @@ TODO: Add long description of the pod here.
    s.dependency 'AliyunOSSiOS', '>= 2.10.7'
    s.dependency 'AFNetworking', '>= 4.0'
    s.dependency 'Reachability', '>= 3.2'
-   s.dependency 'Realm', '>= 4.3.0'
+   s.dependency 'Realm'
    s.dependency 'FMDB', '>= 2.7.5'
    s.dependency 'libwebp', '>= 1.2.1'
    s.dependency 'YYCategories', '>= 1.0.4'
