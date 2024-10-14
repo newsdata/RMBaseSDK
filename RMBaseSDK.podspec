@@ -37,7 +37,7 @@ TODO: Add long description of the pod here.
    s.dependency 'AliyunOSSiOS', '>= 2.10.7'
    s.dependency 'AFNetworking', '>= 4.0'
    s.dependency 'Reachability', '>= 3.2'
-   s.dependency 'Realm'
+   s.dependency 'Realm', '>= 4.3.0'
    s.dependency 'FMDB', '>= 2.7.5'
    s.dependency 'libwebp', '>= 1.2.1'
    s.dependency 'YYCategories', '>= 1.0.4'
