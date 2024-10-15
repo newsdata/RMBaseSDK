@@ -31,6 +31,12 @@ TODO: Add long description of the pod here.
   
   s.vendored_frameworks = 'RMBaseSDK/Frameworks/App.framework','RMBaseSDK/Frameworks/*.framework'
   
+  s.pod_target_xcconfig = {
+    'HEADER_SEARCH_PATHS' => '$(inherited) "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Public"',
+    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
+  }
+
+  
    s.dependency 'Masonry', '>= 1.1.0'
    s.dependency 'MJExtension', '>= 3.4.1'
    s.dependency 'YYModel', '>= 1.0.4'
